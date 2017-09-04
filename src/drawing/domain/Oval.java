@@ -17,6 +17,7 @@ public class Oval extends DrawingItem{
     private double weight;
 
     //Getters-setters
+    @Override
     public Point getAnchor() {
         return anchor;
     }
@@ -24,6 +25,7 @@ public class Oval extends DrawingItem{
         this.anchor = anchor;
     }
 
+    @Override
     public double getWidth() {
         return width;
     }
@@ -31,6 +33,7 @@ public class Oval extends DrawingItem{
         this.width = width;
     }
 
+    @Override
     public double getHeight() {
         return height;
     }
@@ -60,6 +63,21 @@ public class Oval extends DrawingItem{
         this.width = width;
         this.height = height;
         this.weight = weight;
+    }
+    
+    @Override
+    public void editItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void revertChange() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String toString() {
+        return (this.color.toString() + " OVAL (anchor: " + this.anchor.getX() + "," + this.anchor.getY() + " | size: " + this.width + " × " + this.height + " | weight: " + this.weight + ")");
     }
     
 }

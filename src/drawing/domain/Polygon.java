@@ -27,16 +27,64 @@ public class Polygon extends DrawingItem{
         this.weight = weight;
     }
     
+    @Override
     public Point getAnchor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double x = 4200;
+        double y = 4200;
+        
+        for (Point vertice : vertices) {
+            if (vertice.getX() < x) {
+                x = vertice.getX();
+            }
+        }
+        
+        for (Point vertice : vertices) {
+            if (vertice.getY() < y) {
+                y = vertice.getY();
+            }
+        }
+        
+        return new Point(x, y);
     }
 
+    @Override
     public double getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double min = 4200;
+        double max = 0;
+        
+        for (Point vertice : vertices) {
+            if (vertice.getX() < min) {
+                min = vertice.getX();
+            }
+        }
+        
+        for (Point vertice : vertices) {
+            if (vertice.getX() > max) {
+                max = vertice.getX();
+            }
+        }
+        
+        return (max - min);
     }
 
+    @Override
     public double getHeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double min = 4200;
+        double max = 0;
+        
+        for (Point vertice : vertices) {
+            if (vertice.getY() < min) {
+                min = vertice.getY();
+            }
+        }
+        
+        for (Point vertice : vertices) {
+            if (vertice.getY() > max) {
+                max = vertice.getY();
+            }
+        }
+        
+        return (max - min);
     }
     
     //Constructors
@@ -50,6 +98,21 @@ public class Polygon extends DrawingItem{
         super(color, previousState, drawing);
         this.vertices = vertices;
         this.weight = weight;
+    }
+
+    @Override
+    public void editItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void revertChange() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return (this.color.toString() + " POLYGON (anchor: " + this.getAnchor().getX() + "," + this.getAnchor().getY() + " | size: " + this.getWidth() + " × " + this.getHeight() + " | weight: " + this.weight + ")");
     }
     
 }

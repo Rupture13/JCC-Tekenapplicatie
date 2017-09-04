@@ -29,4 +29,16 @@ public class Drawing {
         this.name = name;
         this.items = new ArrayList<DrawingItem>();
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DRAWING ['" + this.name + "'] \n");
+        sb.append("Items in drawing: \n");
+        for (DrawingItem item : items) {
+            sb.append(item.toString() + System.lineSeparator());
+        }
+        
+        return sb.toString();
+    }
 }

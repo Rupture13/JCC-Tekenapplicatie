@@ -19,6 +19,7 @@ public class Image extends DrawingItem{
     private File file;
 
     //Getters-setters
+    @Override
     public Point getAnchor() {
         return anchor;
     }
@@ -26,6 +27,7 @@ public class Image extends DrawingItem{
         this.anchor = anchor;
     }
 
+    @Override
     public double getWidth() {
         return width;
     }
@@ -33,6 +35,7 @@ public class Image extends DrawingItem{
         this.width = width;
     }
 
+    @Override
     public double getHeight() {
         return height;
     }
@@ -62,5 +65,20 @@ public class Image extends DrawingItem{
         this.width = width;
         this.height = height;
         this.file = file;
+    }
+
+    @Override
+    public void editItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void revertChange() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return ("IMAGE [" + this.file.getPath() + "] (anchor: " + this.anchor.getX() + "," + this.anchor.getY() + " | size: " + this.width + " × " + this.height + ")");
     }
 }

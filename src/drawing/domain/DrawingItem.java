@@ -39,4 +39,10 @@ public abstract class DrawingItem {
     public abstract Point getAnchor();
     public abstract double getWidth();
     public abstract double getHeight();
+    
+    public abstract void editItem();
+    public abstract void revertChange();
+    
+    @Override
+    public abstract String toString();
 }

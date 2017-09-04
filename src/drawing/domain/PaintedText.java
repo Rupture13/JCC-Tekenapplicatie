@@ -18,6 +18,7 @@ public class PaintedText extends DrawingItem{
     private String fontName;
 
     //Getters-setters
+    @Override
     public Point getAnchor() {
         return anchor;
     }
@@ -25,6 +26,7 @@ public class PaintedText extends DrawingItem{
         this.anchor = anchor;
     }
 
+    @Override
     public double getWidth() {
         return width;
     }
@@ -32,6 +34,7 @@ public class PaintedText extends DrawingItem{
         this.width = width;
     }
 
+    @Override
     public double getHeight() {
         return height;
     }
@@ -71,5 +74,20 @@ public class PaintedText extends DrawingItem{
         this.height = height;
         this.content = content;
         this.fontName = fontName;
+    }
+
+    @Override
+    public void editItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void revertChange() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return (this.color.toString() + " TEXT ['" + this.content + "'] (anchor: " + this.anchor.getX() + "," + this.anchor.getY() + " | size: " + this.width + " × " + this.height + " | font: " + this.fontName + ")");
     }
 }
