@@ -3,19 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tekenapplicatie;
-import drawing.domain.*;
+package drawing.domain;
+
 /**
  *
  * @author gebruiker
  */
-public class Tekenapplicatie {
+public class Point {
+    //Fields
+    private double x;
+    private double y;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    //Getters-setters
+    public double getX() {
+        return x;
     }
+
+    public double getY() {
+        return y;
+    }
+    
     
 }
