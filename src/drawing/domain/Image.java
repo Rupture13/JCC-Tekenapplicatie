@@ -68,8 +68,14 @@ public class Image extends DrawingItem{
         this.file = file;
     }
 
-    public void editItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editItem(Point anchor, double width, double height, File file, Color color) {
+        if (this.anchor != anchor || this.width != width || this.height != height || (this.file.equals(file) == false) || this.color != color) {
+            this.anchor = anchor;
+            this.width = width;
+            this.height = height;
+            this.file = file;
+            this.color = color;
+        }
     }
 
     @Override

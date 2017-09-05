@@ -77,8 +77,16 @@ public class PaintedText extends DrawingItem{
         this.fontName = fontName;
     }
 
-    public void editItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editItem(Point anchor, double width, double height, String content, String fontName, Color color) {
+        if (this.anchor != anchor || this.width != width || this.height != height || this.content != content || this.fontName != fontName || this.color != color) {
+            this.previousState = new PaintedText(this.anchor, this.width, this.height, this.content, this.fontName, this.color, this.previousState, this.drawing);
+            this.anchor = anchor;
+            this.width = width;
+            this.height = height;
+            this.content = content;
+            this.fontName = fontName;
+            this.color = color;
+        }
     }
 
     @Override

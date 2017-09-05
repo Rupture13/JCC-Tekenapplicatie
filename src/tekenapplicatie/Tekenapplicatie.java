@@ -15,7 +15,7 @@ public class Tekenapplicatie {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TestScript1();
+        //TestScript1();
         TestScript2();
     }
     
@@ -59,7 +59,24 @@ public class Tekenapplicatie {
     
     public static void TestScript2() {
         //Dit is het testscript zoals in de opdracht beschreven
+        Drawing dr = new Drawing("TestDrawing");
         
+        Oval ov = new Oval(new Point(5, 2), 12, 768, 3, Color.BLUE, dr);
+        Point[] polyPoints = {new Point(1, 2), new Point(3, 4), new Point(2, 3)};
+        Polygon po = new Polygon(polyPoints, 0, Color.RED, dr);
+        PaintedText txt = new PaintedText(new Point(1, 5), 36, 6, "Ik ben een text", "Arial", Color.BLACK, dr);
+        
+        dr.AddDrawingItem(ov);
+        dr.AddDrawingItem(po);
+        dr.AddDrawingItem(txt);
+        
+        System.out.println("Voor sorteren:");
+        System.out.println(dr.toString());
+        
+        dr.SortDrawingItemsByDistanceToOrigin();
+        
+        System.out.println("\nNa sorteren:");
+        System.out.println(dr.toString());
     }
     
 }

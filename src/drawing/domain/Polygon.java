@@ -101,8 +101,13 @@ public class Polygon extends DrawingItem{
         this.weight = weight;
     }
 
-    public void editItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editItem(Point[] vertices, double weight, Color color) {
+        if (this.vertices != vertices || this.weight != weight || this.color != color) {
+            this.previousState = new Polygon(this.vertices, this.weight, this.color, this.previousState, this.drawing);
+            this.vertices = vertices;
+            this.weight = weight;
+            this.color = color;
+        }
     }
 
     @Override

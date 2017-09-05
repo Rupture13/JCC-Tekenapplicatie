@@ -6,6 +6,7 @@
 package drawing.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -41,6 +42,10 @@ public class Drawing {
     
     public void RemoveDrawingItem(DrawingItem item) {
         this.items.remove(item);
+    }
+    
+    public void SortDrawingItemsByDistanceToOrigin() {
+        Collections.sort(items, new DrawingItemDistanceToOriginComparator());
     }
     
     @Override
