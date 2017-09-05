@@ -33,11 +33,11 @@ public class Drawing {
     }
     
     //Methods    
-    public void AddDrawingItem(DrawingItem item) {
+    public void addDrawingItem(DrawingItem item) {
         this.items.add(item);
     }
     
-    public void EditDrawingItem(DrawingItem item, Point anchor, Color color, double height, double width, double weight) {
+    public void editDrawingItem(DrawingItem item, Point anchor, Color color, double height, double width, double weight) {
         DrawingItem di = items.get(items.indexOf(item));
         
         if (di instanceof Oval) {
@@ -45,7 +45,7 @@ public class Drawing {
         }
     }
     
-    public void EditDrawingItem(DrawingItem item, Point[] vertices, double weight, Color color) {
+    public void editDrawingItem(DrawingItem item, Point[] vertices, double weight, Color color) {
         DrawingItem di = items.get(items.indexOf(item));
         
         if (di instanceof Polygon) {
@@ -53,7 +53,7 @@ public class Drawing {
         }
     }
     
-    public void EditDrawingItem(DrawingItem item, Point anchor, double width, double height, String content, String fontName, Color color) {
+    public void editDrawingItem(DrawingItem item, Point anchor, double width, double height, String content, String fontName, Color color) {
         DrawingItem di = items.get(items.indexOf(item));
         
         if (di instanceof PaintedText) {
@@ -61,7 +61,7 @@ public class Drawing {
         }
     }
     
-    public void EditDrawingItem(DrawingItem item, Point anchor, double width, double height, File file, Color color) {
+    public void editDrawingItem(DrawingItem item, Point anchor, double width, double height, File file, Color color) {
         DrawingItem di = items.get(items.indexOf(item));
         
         if (di instanceof Image) {
@@ -69,11 +69,11 @@ public class Drawing {
         }
     }
     
-    public void RemoveDrawingItem(DrawingItem item) {
+    public void removeDrawingItem(DrawingItem item) {
         this.items.remove(item);
     }
     
-    public void SortDrawingItemsByDistanceToOrigin() {
+    public void sortDrawingItemsByDistanceToOrigin() {
         Collections.sort(items, new DrawingItemDistanceToOriginComparator());
     }
     

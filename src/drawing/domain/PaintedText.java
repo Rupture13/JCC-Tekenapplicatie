@@ -78,7 +78,7 @@ public class PaintedText extends DrawingItem{
     }
 
     public void editItem(Point anchor, double width, double height, String content, String fontName, Color color) {
-        if (this.anchor != anchor || this.width != width || this.height != height || this.content != content || this.fontName != fontName || this.color != color) {
+        if (this.anchor != anchor || this.width != width || this.height != height || !(this.content.equals(content)) || !(this.fontName.equals(fontName)) || this.color != color) {
             this.previousState = new PaintedText(this.anchor, this.width, this.height, this.content, this.fontName, this.color, this.previousState, this.drawing);
             this.anchor = anchor;
             this.width = width;

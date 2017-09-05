@@ -30,13 +30,13 @@ public class Tekenapplicatie {
         Polygon po = new Polygon(polyPoints, 0, Color.BLUE, dr);
         PaintedText txt = new PaintedText(new Point(42, 42), 36, 6, "Ik ben een text", "Arial", Color.BLACK, dr);
         
-        dr.AddDrawingItem(ov);
-        dr.AddDrawingItem(po);
-        dr.AddDrawingItem(txt);
+        dr.addDrawingItem(ov);
+        dr.addDrawingItem(po);
+        dr.addDrawingItem(txt);
         
         System.out.println(dr.toString());
         
-        dr.RemoveDrawingItem(po);
+        dr.removeDrawingItem(po);
         
         System.out.println(dr.toString());
         
@@ -57,7 +57,7 @@ public class Tekenapplicatie {
         ov2.revertChange();
         System.out.println(ov2.toString());
         
-        dr.EditDrawingItem(ov, new Point(3, 4), Color.BLUE, 1024, 768, 3);
+        dr.editDrawingItem(ov, new Point(3, 4), Color.BLUE, 1024, 768, 3);
         
         System.out.println(dr.toString());
     }
@@ -75,15 +75,15 @@ public class Tekenapplicatie {
         
         Image img = new Image(new Point(42, 13), 30, 60, new File("C:\\Users\\gebruiker\\Desktop\\spacerun concept.jpg"), Color.GREEN, dr);
         
-        dr.AddDrawingItem(ov);
-        dr.AddDrawingItem(po);
-        dr.AddDrawingItem(txt);
-        dr.AddDrawingItem(img);
+        dr.addDrawingItem(ov);
+        dr.addDrawingItem(po);
+        dr.addDrawingItem(txt);
+        dr.addDrawingItem(img);
         
         System.out.println("Voor sorteren:");
         System.out.println(dr.toString());
         
-        dr.SortDrawingItemsByDistanceToOrigin();
+        dr.sortDrawingItemsByDistanceToOrigin();
         
         System.out.println("\nNa sorteren:");
         System.out.println(dr.toString());
