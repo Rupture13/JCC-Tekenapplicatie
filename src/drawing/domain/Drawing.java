@@ -30,6 +30,19 @@ public class Drawing {
         this.items = new ArrayList<DrawingItem>();
     }
     
+    //Methods    
+    public void AddDrawingItem(DrawingItem item) {
+        this.items.add(item);
+    }
+    
+    public void EditDrawingItem(DrawingItem item) {
+        //this.items[this.items.indexOf(item)]
+    }
+    
+    public void RemoveDrawingItem(DrawingItem item) {
+        this.items.remove(item);
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

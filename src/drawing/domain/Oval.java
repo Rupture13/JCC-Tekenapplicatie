@@ -67,7 +67,7 @@ public class Oval extends DrawingItem{
     
     public void editItem(double x, double y, Color color, double height, double width, double weight) {
         if (x != this.anchor.getX() || y != this.anchor.getY() || color != this.color || height != this.height || width != this.width || weight != this.weight) {
-            this.previousState = this;
+            this.previousState = new Oval(this.anchor, this.width, this.height, this.weight, this.color, this.previousState, this.drawing);
             this.anchor = new Point(x, y);
             this.color = color;
             this.height = height;
