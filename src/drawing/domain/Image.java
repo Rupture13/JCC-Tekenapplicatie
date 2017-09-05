@@ -67,14 +67,19 @@ public class Image extends DrawingItem{
         this.file = file;
     }
 
-    @Override
     public void editItem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void revertChange() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Image old = (Image) this.previousState;
+        this.anchor = old.anchor;
+        this.color = old.color;
+        this.height = old.height;
+        this.width = old.width;
+        this.file = old.file;
+        this.previousState = old.previousState;
     }
 
     @Override

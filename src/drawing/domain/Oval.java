@@ -65,14 +65,26 @@ public class Oval extends DrawingItem{
         this.weight = weight;
     }
     
-    @Override
-    public void editItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editItem(double x, double y, Color color, double height, double width, double weight) {
+        if (x != this.anchor.getX() || y != this.anchor.getY() || color != this.color || height != this.height || width != this.width || weight != this.weight) {
+            this.previousState = this;
+            this.anchor = new Point(x, y);
+            this.color = color;
+            this.height = height;
+            this.width = width;
+            this.weight = weight;
+        }
     }
     
     @Override
     public void revertChange() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Oval old = (Oval) this.previousState;
+        this.anchor = old.anchor;
+        this.color = old.color;
+        this.height = old.height;
+        this.width = old.width;
+        this.weight = old.weight;
+        this.previousState = old.previousState;
     }
     
     @Override

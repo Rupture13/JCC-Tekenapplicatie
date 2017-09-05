@@ -100,14 +100,17 @@ public class Polygon extends DrawingItem{
         this.weight = weight;
     }
 
-    @Override
     public void editItem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void revertChange() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Polygon old = (Polygon) this.previousState;
+        this.vertices = old.vertices;
+        this.color = old.color;
+        this.weight = old.weight;
+        this.previousState = old.previousState;
     }
 
     @Override

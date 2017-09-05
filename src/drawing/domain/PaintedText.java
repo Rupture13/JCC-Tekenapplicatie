@@ -76,14 +76,20 @@ public class PaintedText extends DrawingItem{
         this.fontName = fontName;
     }
 
-    @Override
     public void editItem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void revertChange() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PaintedText old = (PaintedText) this.previousState;
+        this.anchor = old.anchor;
+        this.color = old.color;
+        this.height = old.height;
+        this.width = old.width;
+        this.content = old.content;
+        this.fontName = old.fontName;
+        this.previousState = old.previousState;
     }
 
     @Override
