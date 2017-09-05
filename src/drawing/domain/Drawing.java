@@ -5,6 +5,7 @@
  */
 package drawing.domain;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,8 +37,36 @@ public class Drawing {
         this.items.add(item);
     }
     
-    public void EditDrawingItem(DrawingItem item) {
-        //this.items[this.items.indexOf(item)]
+    public void EditDrawingItem(DrawingItem item, Point anchor, Color color, double height, double width, double weight) {
+        DrawingItem di = items.get(items.indexOf(item));
+        
+        if (di instanceof Oval) {
+            ((Oval) items.get(items.indexOf(item))).editItem(anchor, color, height, width, weight);
+        }
+    }
+    
+    public void EditDrawingItem(DrawingItem item, Point[] vertices, double weight, Color color) {
+        DrawingItem di = items.get(items.indexOf(item));
+        
+        if (di instanceof Polygon) {
+            ((Polygon) items.get(items.indexOf(item))).editItem(vertices, weight, color);
+        }
+    }
+    
+    public void EditDrawingItem(DrawingItem item, Point anchor, double width, double height, String content, String fontName, Color color) {
+        DrawingItem di = items.get(items.indexOf(item));
+        
+        if (di instanceof PaintedText) {
+            ((PaintedText) items.get(items.indexOf(item))).editItem(anchor, width, height, content, fontName, color);
+        }
+    }
+    
+    public void EditDrawingItem(DrawingItem item, Point anchor, double width, double height, File file, Color color) {
+        DrawingItem di = items.get(items.indexOf(item));
+        
+        if (di instanceof Image) {
+            ((Image) items.get(items.indexOf(item))).editItem(anchor, width, height, file, color);
+        }
     }
     
     public void RemoveDrawingItem(DrawingItem item) {
