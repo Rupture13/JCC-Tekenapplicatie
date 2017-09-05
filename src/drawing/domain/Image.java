@@ -57,6 +57,7 @@ public class Image extends DrawingItem{
         this.width = width;
         this.height = height;
         this.file = file;
+        this.previousState = null;
     }
 
     public Image(Point anchor, double width, double height, File file, Color color, DrawingItem previousState, Drawing drawing) {
@@ -73,13 +74,15 @@ public class Image extends DrawingItem{
 
     @Override
     public void revertChange() {
-        Image old = (Image) this.previousState;
-        this.anchor = old.anchor;
-        this.color = old.color;
-        this.height = old.height;
-        this.width = old.width;
-        this.file = old.file;
-        this.previousState = old.previousState;
+        if (this.previousState != null) {
+            Image old = (Image) this.previousState;
+            this.anchor = old.anchor;
+            this.color = old.color;
+            this.height = old.height;
+            this.width = old.width;
+            this.file = old.file;
+            this.previousState = old.previousState;
+        }
     }
 
     @Override

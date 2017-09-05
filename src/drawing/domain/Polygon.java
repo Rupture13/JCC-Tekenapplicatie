@@ -92,6 +92,7 @@ public class Polygon extends DrawingItem{
         super(color, drawing);
         this.vertices = vertices;
         this.weight = weight;
+        this.previousState = null;
     }
 
     public Polygon(Point[] vertices, double weight, Color color, DrawingItem previousState, Drawing drawing) {
@@ -106,11 +107,13 @@ public class Polygon extends DrawingItem{
 
     @Override
     public void revertChange() {
-        Polygon old = (Polygon) this.previousState;
-        this.vertices = old.vertices;
-        this.color = old.color;
-        this.weight = old.weight;
-        this.previousState = old.previousState;
+        if (this.previousState != null) {
+            Polygon old = (Polygon) this.previousState;
+            this.vertices = old.vertices;
+            this.color = old.color;
+            this.weight = old.weight;
+            this.previousState = old.previousState;
+        }
     }
 
     @Override

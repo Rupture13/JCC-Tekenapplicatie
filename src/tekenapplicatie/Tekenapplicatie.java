@@ -19,6 +19,8 @@ public class Tekenapplicatie {
     }
     
     public static void TestScript1() {
+        //Dit is een eigen verzonnen testscript om het een en ander mee te testen
+        //Dit testscript werkt nu 100% :)
         Drawing dr = new Drawing("Masterpiece");
         
         Oval ov = new Oval(new Point(2, 3), 12, 768, 3, Color.BLUE, dr);
@@ -55,6 +57,7 @@ public class Tekenapplicatie {
     }
     
     public static void TestScript2() {
+        //Dit is het testscript zoals in de opdracht beschreven
         
     }
     

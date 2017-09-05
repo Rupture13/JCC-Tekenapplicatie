@@ -65,6 +65,7 @@ public class PaintedText extends DrawingItem{
         this.height = height;
         this.content = content;
         this.fontName = fontName;
+        this.previousState = null;
     }
 
     public PaintedText(Point anchor, double width, double height, String content, String fontName, Color color, DrawingItem previousState, Drawing drawing) {
@@ -82,14 +83,16 @@ public class PaintedText extends DrawingItem{
 
     @Override
     public void revertChange() {
-        PaintedText old = (PaintedText) this.previousState;
-        this.anchor = old.anchor;
-        this.color = old.color;
-        this.height = old.height;
-        this.width = old.width;
-        this.content = old.content;
-        this.fontName = old.fontName;
-        this.previousState = old.previousState;
+        if (this.previousState != null) {
+            PaintedText old = (PaintedText) this.previousState;
+            this.anchor = old.anchor;
+            this.color = old.color;
+            this.height = old.height;
+            this.width = old.width;
+            this.content = old.content;
+            this.fontName = old.fontName;
+            this.previousState = old.previousState;
+        }
     }
 
     @Override

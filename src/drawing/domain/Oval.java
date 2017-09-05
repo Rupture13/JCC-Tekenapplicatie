@@ -55,6 +55,7 @@ public class Oval extends DrawingItem{
         this.width = width;
         this.height = height;
         this.weight = weight;
+        this.previousState = null;
     }
 
     public Oval(Point anchor, double width, double height, double weight, Color color, DrawingItem previousState, Drawing drawing) {
@@ -78,13 +79,15 @@ public class Oval extends DrawingItem{
     
     @Override
     public void revertChange() {
-        Oval old = (Oval) this.previousState;
-        this.anchor = old.anchor;
-        this.color = old.color;
-        this.height = old.height;
-        this.width = old.width;
-        this.weight = old.weight;
-        this.previousState = old.previousState;
+        if (this.previousState != null) {
+            Oval old = (Oval) this.previousState;
+            this.anchor = old.anchor;
+            this.color = old.color;
+            this.height = old.height;
+            this.width = old.width;
+            this.weight = old.weight;
+            this.previousState = old.previousState;
+        }
     }
     
     @Override
