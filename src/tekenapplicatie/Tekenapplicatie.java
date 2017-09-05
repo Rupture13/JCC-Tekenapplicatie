@@ -16,6 +16,7 @@ public class Tekenapplicatie {
      */
     public static void main(String[] args) {
         TestScript1();
+        TestScript2();
     }
     
     public static void TestScript1() {
