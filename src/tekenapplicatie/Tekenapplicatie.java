@@ -16,8 +16,8 @@ public class Tekenapplicatie {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //TestScript1();
-        TestScript2();
+        TestScript1();
+        //TestScript2();
     }
     
     public static void TestScript1() {
