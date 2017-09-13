@@ -34,10 +34,11 @@ public class FXMLTekenapplicatieController implements Initializable {
     
     @FXML
     private void hello() {
-        
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
+        
         Drawing dr = new Drawing("Mooi tekening");
         JavaFXPaintable painter = new JavaFXPaintable(gc);
+        
         Oval ov = new Oval(new Point(40, 80), 60, 20, 3, drawing.domain.Color.BLUE, dr);
         Point[] polyPoints = {new Point(150, 75), new Point(350, 200), new Point(255, 40)};
         Polygon po = new Polygon(polyPoints, 1, drawing.domain.Color.RED, dr);
@@ -54,6 +55,13 @@ public class FXMLTekenapplicatieController implements Initializable {
 //        po.paintUsing(painter);
 //        txt.paintUsing(painter);
 //        img.paintUsing(painter);
+    }
+    
+    @FXML
+    private void clearCanvas() {
+        GraphicsContext gc = myCanvas.getGraphicsContext2D();
+        
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
     
     /**

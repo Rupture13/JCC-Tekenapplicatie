@@ -8,12 +8,17 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gainsboro; -fx-border-color: black; -fx-border-width: 5px;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="drawing.javafx.FXMLTekenapplicatieController">
    <children>
       <Canvas id="myCanvas" fx:id="myCanvas" height="374.0" layoutX="14.0" layoutY="14.0" width="521.0" />
-      <Button id="btnExit" fx:id="btnExit" cancelButton="true" layoutX="538.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" text="×" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+      <Button id="btnExit" fx:id="btnExit" cancelButton="true" layoutX="538.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: RED;" text="×" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button id="btnDraw" defaultButton="true" layoutX="537.0" layoutY="335.0" mnemonicParsing="false" onAction="#hello" prefHeight="51.0" prefWidth="49.0" text="Draw">
+      <Button id="btnDraw" layoutX="538.0" layoutY="277.0" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="51.0" prefWidth="49.0" style="-fx-background-color: ORANGE;" text="Clear">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button id="btnDraw" defaultButton="true" layoutX="538.0" layoutY="335.0" mnemonicParsing="false" onAction="#hello" prefHeight="51.0" prefWidth="49.0" text="Draw">
          <font>
             <Font size="11.0" />
          </font>
