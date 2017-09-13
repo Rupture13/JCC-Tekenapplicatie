@@ -5,6 +5,8 @@
  */
 package drawing.domain;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gebruiker
@@ -17,6 +19,26 @@ public class Polygon extends DrawingItem{
     //Getters-setters
     public Point[] getVertices() {
         return vertices;
+    }
+    
+    public double [] getXPositions() {
+        double[] xPoss = new double[this.vertices.length];
+        int i = 0;
+        for (Point point : this.vertices) {
+            xPoss[i] = point.getX();
+            i++;
+        }
+        return xPoss;
+    }
+    
+    public double [] getYPositions() {
+        double[] yPoss = new double[this.vertices.length];
+        int i = 0;
+        for (Point point : this.vertices) {
+            yPoss[i] = point.getY();
+            i++;
+        }
+        return yPoss;
     }
 
     public double getWeight() {
@@ -124,6 +146,11 @@ public class Polygon extends DrawingItem{
     @Override
     public String toString() {
         return (this.color.toString() + " POLYGON (anchor: " + this.getAnchor().getX() + "," + this.getAnchor().getY() + " | size: " + this.getWidth() + " × " + this.getHeight() + " | weight: " + this.weight + ")");
+    }
+
+    @Override
+    public void paintUsing(IPaintable paintable) {
+        paintable.paint(this);
     }
     
 }

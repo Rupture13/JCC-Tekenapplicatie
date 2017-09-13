@@ -94,5 +94,10 @@ public class Oval extends DrawingItem{
     public String toString() {
         return (this.color.toString() + " OVAL (anchor: " + this.anchor.getX() + "," + this.anchor.getY() + " | size: " + this.width + " × " + this.height + " | weight: " + this.weight + ")");
     }
+
+    @Override
+    public void paintUsing(IPaintable paintable) {
+        paintable.paint(this);
+    }
     
 }

@@ -95,4 +95,9 @@ public class Image extends DrawingItem{
     public String toString() {
         return ("IMAGE [" + this.file.getPath() + "] (anchor: " + this.anchor.getX() + "," + this.anchor.getY() + " | size: " + this.width + " × " + this.height + ")");
     }
+
+    @Override
+    public void paintUsing(IPaintable paintable) {
+        paintable.paint(this);
+    }
 }

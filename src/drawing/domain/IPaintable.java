@@ -6,7 +6,7 @@
 package drawing.domain;
 /**
  *
- * @author gebruiker
+ * @author Rupture13
  */
 public interface IPaintable {
     void paint(Oval oval);

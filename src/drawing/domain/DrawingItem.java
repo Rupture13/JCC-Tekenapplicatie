@@ -43,6 +43,8 @@ public abstract class DrawingItem {
     //public abstract void editItem();
     public abstract void revertChange();
     
+    public abstract void paintUsing(IPaintable paintable);
+    
     @Override
     public abstract String toString();
 }
