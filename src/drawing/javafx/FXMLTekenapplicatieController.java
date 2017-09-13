@@ -49,13 +49,11 @@ public class FXMLTekenapplicatieController implements Initializable {
         dr.addDrawingItem(txt);
         dr.addDrawingItem(img);
         
-        ov.paintUsing(painter);
-        po.paintUsing(painter);
-        txt.paintUsing(painter);
-        System.out.println(img.getFile().getPath());
-        img.paintUsing(painter);
-        
-        
+        dr.paintUsing(painter);
+//        ov.paintUsing(painter);
+//        po.paintUsing(painter);
+//        txt.paintUsing(painter);
+//        img.paintUsing(painter);
     }
     
     /**

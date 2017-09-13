@@ -77,6 +77,12 @@ public class Drawing {
         Collections.sort(items, new DrawingItemDistanceToOriginComparator());
     }
     
+    public void paintUsing(IPaintable paintable) {
+        for (DrawingItem item : items) {
+            item.paintUsing(paintable);
+        }
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
