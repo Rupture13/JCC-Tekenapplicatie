@@ -25,6 +25,46 @@ public class Drawing {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public ArrayList<DrawingItem> getOvals() {
+        ArrayList<DrawingItem> result = new ArrayList<>();
+        for (DrawingItem item : items) {
+            if (item instanceof Oval) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<DrawingItem> getPolygons() {
+        ArrayList<DrawingItem> result = new ArrayList<>();
+        for (DrawingItem item : items) {
+            if (item instanceof Polygon) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<DrawingItem> getTexts() {
+        ArrayList<DrawingItem> result = new ArrayList<>();
+        for (DrawingItem item : items) {
+            if (item instanceof PaintedText) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<DrawingItem> getImages() {
+        ArrayList<DrawingItem> result = new ArrayList<>();
+        for (DrawingItem item : items) {
+            if (item instanceof Image) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
 
     //Constructors
     public Drawing(String name) {
@@ -38,39 +78,35 @@ public class Drawing {
     }
     
     public void editDrawingItem(DrawingItem item, Point anchor, Color color, double height, double width, double weight) {
-        DrawingItem di = items.get(items.indexOf(item));
-        
-        if (di instanceof Oval) {
-            ((Oval) items.get(items.indexOf(item))).editItem(anchor, color, height, width, weight);
+        if (item instanceof Oval) {
+            ((Oval) item).editItem(anchor, color, height, width, weight);
         }
     }
     
     public void editDrawingItem(DrawingItem item, Point[] vertices, double weight, Color color) {
-        DrawingItem di = items.get(items.indexOf(item));
-        
-        if (di instanceof Polygon) {
-            ((Polygon) items.get(items.indexOf(item))).editItem(vertices, weight, color);
+        if (item instanceof Polygon) {
+            ((Polygon) item).editItem(vertices, weight, color);
         }
     }
     
     public void editDrawingItem(DrawingItem item, Point anchor, double width, double height, String content, String fontName, Color color) {
-        DrawingItem di = items.get(items.indexOf(item));
-        
-        if (di instanceof PaintedText) {
-            ((PaintedText) items.get(items.indexOf(item))).editItem(anchor, width, height, content, fontName, color);
+        if (item instanceof PaintedText) {
+            ((PaintedText) item).editItem(anchor, width, height, content, fontName, color);
         }
     }
     
     public void editDrawingItem(DrawingItem item, Point anchor, double width, double height, File file, Color color) {
-        DrawingItem di = items.get(items.indexOf(item));
-        
-        if (di instanceof Image) {
-            ((Image) items.get(items.indexOf(item))).editItem(anchor, width, height, file, color);
+        if (item instanceof Image) {
+            ((Image) item).editItem(anchor, width, height, file, color);
         }
     }
     
     public void removeDrawingItem(DrawingItem item) {
         this.items.remove(item);
+    }
+    
+    public void removeAllDrawingItems() {
+        this.items.clear();
     }
     
     public void sortDrawingItemsByDistanceToOrigin() {

@@ -45,6 +45,9 @@ public class Tekenapplicatie {
         Oval ov2 = new Oval(new Point(42, 13), 1920, 1080, 1, Color.RED, dr);
         System.out.println(ov2.toString());
         
+//        dr.addDrawingItem(ov2);
+//        dr.editDrawingItem(ov2, new Point(24, 48), ov2.getColor(), ov2.getHeight(), ov2.getWidth(), ov2.getWeight());
+//        System.out.println(dr.toString());
         ov2.editItem(new Point(24, 48), ov2.getColor(), ov2.getHeight(), ov2.getWidth(), ov2.getWeight());
         System.out.println(ov2.toString());
         
@@ -59,7 +62,7 @@ public class Tekenapplicatie {
         
         dr.editDrawingItem(ov, new Point(3, 4), Color.BLUE, 1024, 768, 3);
         
-        System.out.println(dr.toString());
+        System.out.println("\n" + dr.toString());
     }
     
     public static void TestScript2() {

@@ -48,7 +48,8 @@ public class JavaFXPaintable implements IPaintable {
 
     @Override
     public void paint(Image image) {
-        gc.drawImage(new javafx.scene.image.Image("file:///"+image.getFile().getPath()), image.getAnchor().getX(), image.getAnchor().getY());
+//        gc.drawImage(new javafx.scene.image.Image("file:///"+image.getFile().getPath()), image.getAnchor().getX(), image.getAnchor().getY());
+        gc.drawImage(new javafx.scene.image.Image(image.getFile().toURI().toString()), image.getAnchor().getX(), image.getAnchor().getY());
     }
     
 }

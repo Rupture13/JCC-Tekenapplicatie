@@ -17,6 +17,8 @@ import javafx.scene.paint.Color;
 import drawing.domain.*;
 import java.io.File;
 import java.util.ArrayList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
@@ -91,12 +93,70 @@ public class FXMLTekenapplicatieController implements Initializable {
     private Tab tabEdit;    
         @FXML
         private Tab tabEditOval;
+            @FXML
+            private ComboBox<DrawingItem> cmbOvalEdit;
+            @FXML
+            private Button btnOvalRevert;
+            @FXML
+            private ComboBox<drawing.domain.Color> cmbOvalEditColor;
+            @FXML
+            private Spinner<Integer> numOvalEditWidth;
+            @FXML
+            private Spinner<Integer> numOvalEditHeight;
+            @FXML
+            private Spinner<Integer> numOvalEditWeight;
+            @FXML
+            private Button btnOvalChange;
+            @FXML
+            private Button btnOvalRemove;
         @FXML
         private Tab tabEditPolygon;
+            @FXML
+            private ComboBox<DrawingItem> cmbPolygonEdit;
+            @FXML
+            private Button btnPolygonRevert;
+            @FXML
+            private ComboBox<drawing.domain.Color> cmbPolygonEditColor;
+            @FXML
+            private Spinner<Integer> numPolygonEditWeight;
+            @FXML
+            private Button btnPolygonChange;
+            @FXML
+            private Button btnPolygonRemove;
         @FXML
         private Tab tabEditText;
+            @FXML
+            private ComboBox<DrawingItem> cmbTextEdit;
+            @FXML
+            private Button btnTextRevert;
+            @FXML
+            private TextField txtTextEditText;
+            @FXML
+            private ComboBox<String> cmbTextEditFont;
+            @FXML
+            private ComboBox<drawing.domain.Color> cmbTextEditColor;
+            @FXML
+            private Spinner<Integer> numTextEditWidth;
+            @FXML
+            private Spinner<Integer> numTextEditHeight;
+            @FXML
+            private Button btnTextChange;
+            @FXML
+            private Button btnTextRemove;
         @FXML
         private Tab tabEditImage;
+            @FXML
+            private ComboBox<DrawingItem> cmbImageEdit;
+            @FXML
+            private Button btnImageRevert;
+            @FXML
+            private TextField txtImageEditPath;
+            @FXML
+            private Button btnImageEditBrowse;
+            @FXML
+            private Button btnImageChange;
+            @FXML
+            private Button btnImageRemove;
     // </editor-fold>
     
     // <editor-fold desc="Global variables">
@@ -112,7 +172,7 @@ public class FXMLTekenapplicatieController implements Initializable {
     private void openTabDrawing() {
         if (tabDrawing.isSelected()) {
             if (tabGeneral.isSelected()) {
-                System.out.println("general");
+                
             }
         }
     }
@@ -121,28 +181,29 @@ public class FXMLTekenapplicatieController implements Initializable {
     private void openTabAdd() {
         if (tabAdd.isSelected()) {
             if (tabAddOval.isSelected()) {
-                System.out.println("add oval");
+                cmbOvalAddColor.getItems().clear();
                 cmbOvalAddColor.getItems().addAll(drawing.domain.Color.BLACK, drawing.domain.Color.WHITE, drawing.domain.Color.RED, drawing.domain.Color.BLUE, drawing.domain.Color.GREEN);
                 cmbOvalAddColor.getSelectionModel().select(0);
             }
             else if (tabAddPolygon.isSelected()) {
-                System.out.println("add polygon");
+                cmbPolygonAddColor.getItems().clear();
                 cmbPolygonAddColor.getItems().addAll(drawing.domain.Color.BLACK, drawing.domain.Color.WHITE, drawing.domain.Color.RED, drawing.domain.Color.BLUE, drawing.domain.Color.GREEN);
                 cmbPolygonAddColor.getSelectionModel().select(0);
+                
                 polyPoints.clear();
                 collectingPoints = false;
+                
                 lblPolygonAddCount.setText("Points: 0");
                 lblPolygonAddCount.setVisible(false);
             }
             else if (tabAddText.isSelected()) {
-                System.out.println("add text");
+                cmbTextAddColor.getItems().clear();
                 cmbTextAddColor.getItems().addAll(drawing.domain.Color.BLACK, drawing.domain.Color.WHITE, drawing.domain.Color.RED, drawing.domain.Color.BLUE, drawing.domain.Color.GREEN);
                 cmbTextAddColor.getSelectionModel().select(0);
+                
+                cmbTextAddFont.getItems().clear();
                 cmbTextAddFont.getItems().addAll(javafx.scene.text.Font.getFamilies());
                 cmbTextAddFont.getSelectionModel().select("Arial");
-            }
-            else if (tabAddImage.isSelected()) {
-                System.out.println("add image");
             }
         }
     }
@@ -151,16 +212,48 @@ public class FXMLTekenapplicatieController implements Initializable {
     private void openTabEdit() {
         if (tabEdit.isSelected()) {
             if (tabEditOval.isSelected()) {
-                System.out.println("edit oval");
+                cmbOvalEdit.getItems().clear();
+                cmbOvalEdit.getItems().addAll(dr.getOvals());
+                cmbOvalEdit.getSelectionModel().select(0);
+                
+                cmbOvalEditColor.getItems().clear();
+                cmbOvalEditColor.getItems().addAll(drawing.domain.Color.BLACK, drawing.domain.Color.WHITE, drawing.domain.Color.RED, drawing.domain.Color.BLUE, drawing.domain.Color.GREEN);
+                cmbOvalEditColor.getSelectionModel().select(0);
+                
+                fillOvalInfo();
             }
             else if (tabEditPolygon.isSelected()) {
-                System.out.println("edit polygon");
+                cmbPolygonEdit.getItems().clear();
+                cmbPolygonEdit.getItems().addAll(dr.getPolygons());
+                cmbPolygonEdit.getSelectionModel().select(0);
+                
+                cmbPolygonEditColor.getItems().clear();
+                cmbPolygonEditColor.getItems().addAll(drawing.domain.Color.BLACK, drawing.domain.Color.WHITE, drawing.domain.Color.RED, drawing.domain.Color.BLUE, drawing.domain.Color.GREEN);
+                cmbPolygonEditColor.getSelectionModel().select(0);
+                
+                fillPolygonInfo();
             }
             else if (tabEditText.isSelected()) {
-                System.out.println("edit text");
+                cmbTextEdit.getItems().clear();
+                cmbTextEdit.getItems().addAll(dr.getTexts());
+                cmbTextEdit.getSelectionModel().select(0);
+                
+                cmbTextEditFont.getItems().clear();
+                cmbTextEditFont.getItems().addAll(javafx.scene.text.Font.getFamilies());
+                cmbTextEditFont.getSelectionModel().select("Arial");
+                
+                cmbTextEditColor.getItems().clear();
+                cmbTextEditColor.getItems().addAll(drawing.domain.Color.BLACK, drawing.domain.Color.WHITE, drawing.domain.Color.RED, drawing.domain.Color.BLUE, drawing.domain.Color.GREEN);
+                cmbTextEditColor.getSelectionModel().select(0);
+                
+                fillTextInfo();
             }
             else if (tabEditImage.isSelected()) {
-                System.out.println("edit image");
+                cmbImageEdit.getItems().clear();
+                cmbImageEdit.getItems().addAll(dr.getImages());
+                cmbImageEdit.getSelectionModel().select(0);
+                
+                fillImageInfo();
             }
         }
     }
@@ -238,6 +331,13 @@ public class FXMLTekenapplicatieController implements Initializable {
     }
     
     @FXML
+    private void clearDrawing() {
+        dr.removeAllDrawingItems();
+        clearCanvas();
+        openTabDrawing();
+    }
+    
+    @FXML
     private void startCollectingPoints() {
         polyPoints.clear();
         collectingPoints = true;
@@ -276,6 +376,165 @@ public class FXMLTekenapplicatieController implements Initializable {
         }
     }
     
+    @FXML
+    private void selectImage2() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose another image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
+        
+        File image = fileChooser.showOpenDialog(null);
+        if (image != null) {
+            txtImageEditPath.setText(image.getPath());
+        }
+        else {
+            txtImageEditPath.setText("");
+        }
+    }
+    
+    @FXML
+    private void fillOvalInfo() {
+        if (cmbOvalEdit.getValue() != null) {
+            cmbOvalEditColor.setValue(cmbOvalEdit.getValue().getColor());
+            numOvalEditWidth.getValueFactory().setValue((int) cmbOvalEdit.getValue().getWidth());
+            numOvalEditHeight.getValueFactory().setValue((int) cmbOvalEdit.getValue().getHeight());
+            numOvalEditWeight.getValueFactory().setValue((int) ((Oval) cmbOvalEdit.getValue()).getWeight());
+        }
+    }
+    
+    @FXML
+    private void revertOval() {
+        if (cmbOvalEdit.getValue() != null) {
+            cmbOvalEdit.getValue().revertChange();
+            fillOvalInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void changeOval() {
+        if (cmbOvalEdit.getValue() != null) {
+            dr.editDrawingItem(cmbOvalEdit.getValue(), cmbOvalEdit.getValue().getAnchor(), cmbOvalEditColor.getValue(), numOvalEditHeight.getValue(), numOvalEditWidth.getValue(), numOvalEditWeight.getValue());
+            fillOvalInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void removeOval() {
+        if (cmbOvalEdit.getValue() != null) {
+            dr.removeDrawingItem(cmbOvalEdit.getValue());
+            openTabEdit();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void fillPolygonInfo() {
+        if (cmbPolygonEdit.getValue() != null) {
+            cmbPolygonEditColor.setValue(cmbPolygonEdit.getValue().getColor());
+            numPolygonEditWeight.getValueFactory().setValue((int) ((Polygon) cmbPolygonEdit.getValue()).getWeight());
+        }
+    }
+    
+    @FXML
+    private void revertPolygon() {
+        if (cmbPolygonEdit.getValue() != null) {
+            cmbPolygonEdit.getValue().revertChange();
+            fillPolygonInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void changePolygon() {
+        if (cmbPolygonEdit.getValue() != null) {
+            dr.editDrawingItem(cmbPolygonEdit.getValue(), ((Polygon) cmbPolygonEdit.getValue()).getVertices(), numPolygonEditWeight.getValue(), cmbPolygonEditColor.getValue());
+            fillPolygonInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void removePolygon() {
+        if (cmbPolygonEdit.getValue() != null) {
+            dr.removeDrawingItem(cmbPolygonEdit.getValue());
+            openTabEdit();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void fillTextInfo() {
+        if (cmbTextEdit.getValue() != null) {
+            txtTextEditText.setText(((PaintedText) cmbTextEdit.getValue()).getContent());
+            cmbTextEditFont.setValue(((PaintedText) cmbTextEdit.getValue()).getFontName());
+            cmbTextEditColor.setValue(cmbTextEdit.getValue().getColor());
+            numTextEditWidth.getValueFactory().setValue((int) cmbTextEdit.getValue().getWidth());
+            numTextEditHeight.getValueFactory().setValue((int) cmbTextEdit.getValue().getHeight());
+        }
+    }
+    
+    @FXML
+    private void revertText() {
+        if (cmbTextEdit.getValue() != null) {
+            cmbTextEdit.getValue().revertChange();
+            fillTextInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void changeText() {
+        if (cmbTextEdit.getValue() != null) {
+            dr.editDrawingItem(cmbTextEdit.getValue(), cmbTextEdit.getValue().getAnchor(), numTextEditWidth.getValue(), numTextEditHeight.getValue(), txtTextEditText.getText(), cmbTextEditFont.getValue(), cmbTextEditColor.getValue());
+            fillTextInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void removeText() {
+        if (cmbTextEdit.getValue() != null) {
+            dr.removeDrawingItem(cmbTextEdit.getValue());
+            openTabEdit();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void fillImageInfo() {
+        if (cmbImageEdit.getValue() != null) {
+            txtImageEditPath.setText(((Image) cmbImageEdit.getValue()).getFile().getPath());
+        }
+    }
+    
+    @FXML
+    private void revertImage() {
+        if (cmbImageEdit.getValue() != null) {
+            cmbImageEdit.getValue().revertChange();
+            fillImageInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void changeImage() {
+        if (cmbImageEdit.getValue() != null) {
+            dr.editDrawingItem(cmbImageEdit.getValue(), cmbImageEdit.getValue().getAnchor(), cmbImageEdit.getValue().getWidth(), cmbImageEdit.getValue().getHeight(), new File(txtImageEditPath.getText()), cmbImageEdit.getValue().getColor());
+            fillImageInfo();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void removeImage() {
+        if (cmbImageEdit.getValue() != null) {
+            dr.removeDrawingItem(cmbImageEdit.getValue());
+            openTabEdit();
+            draw();
+        }
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -286,7 +545,20 @@ public class FXMLTekenapplicatieController implements Initializable {
         painter = new JavaFXPaintable(gc);
         
         collectingPoints = false;
-        polyPoints = new ArrayList<Point>();
-    }    
-    
+        polyPoints = new ArrayList<>();
+        
+        cmbOvalEdit.valueProperty().addListener((ObservableValue<? extends DrawingItem> observable, DrawingItem oldValue, DrawingItem newValue) -> {
+            fillOvalInfo();
+        });
+        cmbPolygonEdit.valueProperty().addListener((ObservableValue<? extends DrawingItem> observable, DrawingItem oldValue, DrawingItem newValue) -> {
+            fillPolygonInfo();
+        });
+        cmbTextEdit.valueProperty().addListener((ObservableValue<? extends DrawingItem> observable, DrawingItem oldValue, DrawingItem newValue) -> {
+            fillTextInfo();
+        });
+        cmbImageEdit.valueProperty().addListener((ObservableValue<? extends DrawingItem> observable, DrawingItem oldValue, DrawingItem newValue) -> {
+            fillImageInfo();
+        });
+        
+    }
 }

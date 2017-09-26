@@ -36,7 +36,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
                                        <children>
-                                          <Button fx:id="btnClear" layoutX="52.0" layoutY="336.0" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="93.0" prefWidth="240.0" text="Clear canvas" />
+                                          <Button fx:id="btnClear" layoutX="52.0" layoutY="336.0" mnemonicParsing="false" onAction="#clearDrawing" prefHeight="93.0" prefWidth="240.0" text="Clear canvas" />
                                           <Label layoutX="47.0" layoutY="36.0" text="Drawing title">
                                              <font>
                                                 <Font size="20.0" />
@@ -209,22 +209,171 @@
                            <tabs>
                               <Tab fx:id="tabEditOval" onSelectionChanged="#openTabEdit" text="Oval">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Spinner fx:id="numOvalEditWidth" editable="true" initialValue="100" layoutX="47.0" layoutY="221.0" max="725" min="1" prefWidth="120.0" />
+                                          <ComboBox fx:id="cmbOvalEditColor" layoutX="47.0" layoutY="160.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="130.0" text="Color">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="191.0" text="Width">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numOvalEditHeight" editable="true" initialValue="100" layoutX="177.0" layoutY="221.0" max="500" min="1" prefWidth="120.0" />
+                                          <Label layoutX="237.0" layoutY="191.0" text="Height">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numOvalEditWeight" editable="true" initialValue="1" layoutX="47.0" layoutY="282.0" max="50" min="0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="252.0" text="Line weight">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cmbOvalEdit" layoutX="47.0" layoutY="44.0" prefWidth="250.0" />
+                                          <Label layoutX="86.0" layoutY="14.0" text="Pick an item to edit">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnOvalRevert" layoutX="47.0" layoutY="80.0" mnemonicParsing="false" onAction="#revertOval" prefWidth="250.0" text="Revert to previous state" />
+                                          <Button fx:id="btnOvalChange" layoutX="47.0" layoutY="379.0" mnemonicParsing="false" onAction="#changeOval" prefHeight="50.0" prefWidth="120.0" text="Change" textFill="#204ec3">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnOvalRemove" layoutX="177.0" layoutY="379.0" mnemonicParsing="false" onAction="#removeOval" prefHeight="50.0" prefWidth="120.0" text="Remove" textFill="#d70000">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                               <Tab fx:id="tabEditPolygon" onSelectionChanged="#openTabEdit" text="Polygon">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <ComboBox fx:id="cmbPolygonEditColor" layoutX="47.0" layoutY="186.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="158.0" text="Color">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numPolygonEditWeight" editable="true" initialValue="1" layoutX="47.0" layoutY="255.0" max="50" min="0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="227.0" text="Line weight">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cmbPolygonEdit" layoutX="47.0" layoutY="44.0" prefWidth="250.0" />
+                                          <Label layoutX="86.0" layoutY="14.0" text="Pick an item to edit">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnPolygonRevert" layoutX="47.0" layoutY="80.0" mnemonicParsing="false" onAction="#revertPolygon" prefWidth="250.0" text="Revert to previous state" />
+                                          <Button fx:id="btnPolygonChange" layoutX="47.0" layoutY="379.0" mnemonicParsing="false" onAction="#changePolygon" prefHeight="50.0" prefWidth="120.0" text="Change" textFill="#204ec3">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnPolygonRemove" layoutX="177.0" layoutY="379.0" mnemonicParsing="false" onAction="#removePolygon" prefHeight="50.0" prefWidth="120.0" text="Remove" textFill="#d70000">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                               <Tab fx:id="tabEditText" onSelectionChanged="#openTabEdit" text="Text">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Spinner fx:id="numTextEditWidth" editable="true" initialValue="100" layoutX="47.0" layoutY="333.0" max="725" min="1" prefWidth="120.0" />
+                                          <ComboBox fx:id="cmbTextEditColor" layoutX="47.0" layoutY="272.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="242.0" text="Color">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="303.0" text="Width">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numTextEditHeight" editable="true" initialValue="100" layoutX="177.0" layoutY="333.0" max="500" min="1" prefWidth="120.0" />
+                                          <Label layoutX="237.0" layoutY="303.0" text="Height">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cmbTextEditFont" layoutX="47.0" layoutY="211.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="181.0" text="Font">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="120.0" text="Text">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtTextEditText" layoutX="47.0" layoutY="150.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter your text here..." />
+                                          <ComboBox fx:id="cmbTextEdit" layoutX="47.0" layoutY="44.0" prefWidth="250.0" />
+                                          <Label layoutX="86.0" layoutY="14.0" text="Pick an item to edit">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnTextRevert" layoutX="47.0" layoutY="80.0" mnemonicParsing="false" onAction="#revertText" prefWidth="250.0" text="Revert to previous state" />
+                                          <Button fx:id="btnTextChange" layoutX="47.0" layoutY="379.0" mnemonicParsing="false" onAction="#changeText" prefHeight="50.0" prefWidth="120.0" text="Change" textFill="#204ec3">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnTextRemove" layoutX="177.0" layoutY="379.0" mnemonicParsing="false" onAction="#removeText" prefHeight="50.0" prefWidth="120.0" text="Remove" textFill="#d70000">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                               <Tab fx:id="tabEditImage" onSelectionChanged="#openTabEdit" text="Image">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Label layoutX="47.0" layoutY="168.0" text="Choose your image">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtImageEditPath" layoutX="47.0" layoutY="206.0" prefHeight="31.0" prefWidth="250.0" promptText="Select a file..." />
+                                          <Button fx:id="btnImageEditBrowse" layoutX="47.0" layoutY="245.0" mnemonicParsing="false" onAction="#selectImage2" prefWidth="250.0" text="Browse" />
+                                          <ComboBox fx:id="cmbImageEdit" layoutX="47.0" layoutY="44.0" prefWidth="250.0" />
+                                          <Label layoutX="86.0" layoutY="14.0" text="Pick an item to edit">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnImageRevert" layoutX="47.0" layoutY="80.0" mnemonicParsing="false" onAction="#revertImage" prefWidth="250.0" text="Revert to previous state" />
+                                          <Button fx:id="btnImageChange" layoutX="47.0" layoutY="379.0" mnemonicParsing="false" onAction="#changeImage" prefHeight="50.0" prefWidth="120.0" text="Change" textFill="#204ec3">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnImageRemove" layoutX="177.0" layoutY="379.0" mnemonicParsing="false" onAction="#removeImage" prefHeight="50.0" prefWidth="120.0" text="Remove" textFill="#d70000">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                            </tabs>

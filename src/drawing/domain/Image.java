@@ -70,6 +70,7 @@ public class Image extends DrawingItem{
 
     public void editItem(Point anchor, double width, double height, File file, Color color) {
         if (this.anchor != anchor || this.width != width || this.height != height || (this.file.equals(file) == false) || this.color != color) {
+            this.previousState = new Image(this.anchor, this.width, this.height, this.file, this.color, this.drawing);
             this.anchor = anchor;
             this.width = width;
             this.height = height;
