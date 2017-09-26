@@ -1,27 +1,240 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gainsboro; -fx-border-color: black; -fx-border-width: 5px;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="drawing.javafx.FXMLTekenapplicatieController">
+<AnchorPane id="AnchorPane" prefHeight="575.0" prefWidth="1125.0" style="-fx-background-color: #709BBC; -fx-border-color: black; -fx-border-width: 5px;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="drawing.javafx.FXMLTekenapplicatieController">
    <children>
-      <Canvas id="myCanvas" fx:id="myCanvas" height="374.0" layoutX="14.0" layoutY="14.0" width="521.0" />
-      <Button id="btnExit" fx:id="btnExit" cancelButton="true" layoutX="538.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: RED;" text="×" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button id="btnDraw" layoutX="538.0" layoutY="277.0" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="51.0" prefWidth="49.0" style="-fx-background-color: ORANGE;" text="Clear">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
-      <Button id="btnDraw" defaultButton="true" layoutX="538.0" layoutY="335.0" mnemonicParsing="false" onAction="#hello" prefHeight="51.0" prefWidth="49.0" text="Draw">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
+      <StackPane fx:id="myHolder" layoutX="14.0" layoutY="61.0" prefHeight="374.0" prefWidth="524.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+         <children>
+            <Canvas id="myCanvas" fx:id="myCanvas" height="500.0" onMouseClicked="#addItemToDrawing" width="725.0">
+               <cursor>
+                  <Cursor fx:constant="CROSSHAIR" />
+               </cursor>
+            </Canvas>
+         </children>
+      </StackPane>
+      <TabPane layoutX="751.0" layoutY="13.0" prefHeight="550.0" prefWidth="367.0" style="-fx-background-color: #2C6999; -fx-background-radius: 10px; -fx-border-color: #2C6999; -fx-border-radius: 0px 0px 10px 10px; -fx-border-width: 5px;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabDrawing" closable="false" onSelectionChanged="#openTabDrawing" style="-fx-font-weight: bold; -fx-padding: 8px;" text="Drawing">
+               <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="230.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="8.0" prefHeight="482.0" prefWidth="343.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab fx:id="tabGeneral" onSelectionChanged="#openTabDrawing" text="General">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Button fx:id="btnClear" layoutX="52.0" layoutY="336.0" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="93.0" prefWidth="240.0" text="Clear canvas" />
+                                          <Label layoutX="47.0" layoutY="36.0" text="Drawing title">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtGeneralTitle" layoutX="47.0" layoutY="66.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter the title of the drawing here..." text="Untitled drawing" />
+                                          <Button fx:id="btnGeneralRename" layoutX="47.0" layoutY="109.0" mnemonicParsing="false" onAction="#renameDrawing" prefWidth="250.0" text="Rename" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab fx:id="tabAdd" closable="false" onSelectionChanged="#openTabAdd" style="-fx-font-weight: bold; -fx-padding: 8px;" text="Add">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="8.0" prefHeight="482.0" prefWidth="343.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab fx:id="tabAddOval" onSelectionChanged="#openTabAdd" text="Oval">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Spinner fx:id="numOvalAddWidth" editable="true" initialValue="100" layoutX="47.0" layoutY="207.0" max="725" min="1" prefWidth="250.0" />
+                                          <ComboBox fx:id="cmbOvalAddColor" layoutX="47.0" layoutY="135.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="105.0" text="Color">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="177.0" text="Width">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numOvalAddHeight" editable="true" initialValue="100" layoutX="47.0" layoutY="282.0" max="500" min="1" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="252.0" text="Height">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numOvalAddWeight" editable="true" initialValue="1" layoutX="47.0" layoutY="356.0" max="50" min="0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="326.0" text="Line weight">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="20.0" layoutY="14.0" prefHeight="46.0" prefWidth="304.0" text="Click anywhere on the canvas to draw an oval" textAlignment="CENTER" textFill="#f2ff00" textOverrun="CENTER_ELLIPSIS">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabAddPolygon" onSelectionChanged="#openTabAdd" text="Polygon">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Label layoutX="20.0" layoutY="17.0" prefHeight="99.0" prefWidth="304.0" text="Click the start button to start adding points to your polygon. When you're done adding points on the canvas, click the draw button to draw your polygon." textAlignment="JUSTIFY" textFill="#f2ff00" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cmbPolygonAddColor" layoutX="47.0" layoutY="292.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="262.0" text="Color">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numPolygonAddWeight" editable="true" initialValue="1" layoutX="47.0" layoutY="361.0" max="50" min="0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="331.0" text="Line weight">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnPolygonAddStart" layoutX="47.0" layoutY="126.0" mnemonicParsing="false" onAction="#startCollectingPoints" prefWidth="250.0" text="Start adding points" />
+                                          <Button fx:id="btnPolygonAddDraw" layoutX="47.0" layoutY="191.0" mnemonicParsing="false" onAction="#addPolygonToDrawing" prefWidth="250.0" text="Draw" textFill="#2200ff">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="lblPolygonAddCount" contentDisplay="CENTER" layoutX="115.0" layoutY="157.0" prefHeight="36.0" prefWidth="114.0" text="Points: 999" textAlignment="CENTER" textFill="#0a7c2c" textOverrun="CENTER_ELLIPSIS" visible="false" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabAddText" onSelectionChanged="#openTabAdd" text="Text">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Label layoutX="20.0" layoutY="14.0" prefHeight="46.0" prefWidth="303.0" text="Click anywhere on the canvas to draw a text" textAlignment="JUSTIFY" textFill="#f2ff00" textOverrun="CENTER_ELLIPSIS">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numTextAddWidth" editable="true" initialValue="100" layoutX="47.0" layoutY="317.0" max="725" min="1" prefWidth="250.0" />
+                                          <ComboBox fx:id="cmbTextAddColor" layoutX="47.0" layoutY="245.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="215.0" text="Color">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="287.0" text="Width">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="numTextAddHeight" editable="true" initialValue="100" layoutX="47.0" layoutY="392.0" max="500" min="1" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="362.0" text="Height">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cmbTextAddFont" layoutX="47.0" layoutY="150.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="120.0" text="Font">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="53.0" text="Text">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtTextAddText" layoutX="47.0" layoutY="83.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter your text here..." />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabAddImage" onSelectionChanged="#openTabAdd" text="Image">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Label layoutX="20.0" layoutY="17.0" prefHeight="62.0" prefWidth="304.0" text="First, select an image. Then click anywhere on the canvas to draw the image." textAlignment="JUSTIFY" textFill="#f2ff00" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="114.0" text="Choose your image">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtImageAddPath" layoutX="47.0" layoutY="152.0" prefHeight="31.0" prefWidth="250.0" promptText="Select a file..." />
+                                          <Button fx:id="btnImageAddBrowse" layoutX="47.0" layoutY="191.0" mnemonicParsing="false" onAction="#selectImage" prefWidth="250.0" text="Browse" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="tabEdit" closable="false" onSelectionChanged="#openTabEdit" style="-fx-font-weight: bold; -fx-padding: 8px;" text="Edit">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="8.0" prefHeight="482.0" prefWidth="343.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab fx:id="tabEditOval" onSelectionChanged="#openTabEdit" text="Oval">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabEditPolygon" onSelectionChanged="#openTabEdit" text="Polygon">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabEditText" onSelectionChanged="#openTabEdit" text="Text">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabEditImage" onSelectionChanged="#openTabEdit" text="Image">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0" />
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Label fx:id="lblDrawingName" layoutX="14.0" layoutY="12.0" prefHeight="46.0" prefWidth="725.0" style="-fx-font-weight: bold; -fx-font-size: 24px;" text="Untitled drawing" />
    </children>
 </AnchorPane>

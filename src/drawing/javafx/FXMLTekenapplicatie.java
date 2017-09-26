@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -31,6 +32,8 @@ public class FXMLTekenapplicatie extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLTekenapplicatie.fxml"));
         Scene scene = new Scene(root, Color.TRANSPARENT);
         
+        primaryStage.setTitle("Tekenapplicatie");
+        primaryStage.getIcons().add(new Image("file:C:\\Users\\User\\Pictures\\4 - Icons\\Icon Files\\Raw PNG\\Fontys.png"));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
