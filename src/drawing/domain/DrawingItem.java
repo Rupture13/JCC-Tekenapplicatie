@@ -5,11 +5,13 @@
  */
 package drawing.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gebruiker
  */
-public abstract class DrawingItem {
+public abstract class DrawingItem implements Serializable {
     //Fields
     Color color;
     DrawingItem previousState;

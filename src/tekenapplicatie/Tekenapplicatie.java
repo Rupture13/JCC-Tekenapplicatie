@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package tekenapplicatie;
+import drawing.database.DatabaseMediator;
 import drawing.domain.*;
+import drawing.serialization.*;
 import java.io.File;
 /**
  *
- * @author gebruiker
+ * @author Rupture13
  */
 public class Tekenapplicatie {
 
@@ -63,6 +65,20 @@ public class Tekenapplicatie {
         dr.editDrawingItem(ov, new Point(3, 4), Color.BLUE, 1024, 768, 3);
         
         System.out.println("\n" + dr.toString());
+        
+        SerializationMediator sm = new SerializationMediator();
+        sm.save(dr);
+        Drawing dr2 = sm.load("Masterpiece");
+        if (dr2 != null) {
+            System.out.println("PostSerializing\n" + dr2.toString());
+        }
+        
+        DatabaseMediator dm = new DatabaseMediator();
+        dm.save(dr);
+        Drawing dr3 = dm.load("Masterpiece");
+        if (dr3 != null) {
+            System.out.println("PostDatabasing\n" + dr3.toString());
+        }
     }
     
     public static void TestScript2() {
@@ -90,6 +106,9 @@ public class Tekenapplicatie {
         
         System.out.println("\nNa sorteren:");
         System.out.println(dr.toString());
+        
+        
     }
+    
     
 }

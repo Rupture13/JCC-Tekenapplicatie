@@ -5,6 +5,7 @@
  */
 package drawing.javafx;
 
+import drawing.database.DatabaseMediator;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -15,10 +16,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import drawing.domain.*;
+import drawing.serialization.SerializationMediator;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
@@ -45,6 +48,18 @@ public class FXMLTekenapplicatieController implements Initializable {
             private Button btnGeneralRename;
             @FXML
             private Button btnClear;
+        @FXML
+        private Tab tabStorage;
+            @FXML
+            private Button btnLocalLoad;
+            @FXML
+            private Button btnLocalSave;
+            @FXML
+            private TextField txtDBLoadName;
+            @FXML
+            private Button btnDBLoad;
+            @FXML
+            private Button btnDBSave;
     
     @FXML
     private Tab tabAdd;
@@ -168,11 +183,12 @@ public class FXMLTekenapplicatieController implements Initializable {
     ArrayList<Point> polyPoints;
     //</editor-fold>
     
+    // <editor-fold desc="Open Tab">
     @FXML
     private void openTabDrawing() {
         if (tabDrawing.isSelected()) {
-            if (tabGeneral.isSelected()) {
-                
+            if (tabStorage.isSelected()) {
+                //txtDBLoadName.setText(dr.getName());
             }
         }
     }
@@ -257,6 +273,8 @@ public class FXMLTekenapplicatieController implements Initializable {
             }
         }
     }
+    // </editor-fold>
+    
     
     @FXML
     private void renameDrawing() {
@@ -392,6 +410,70 @@ public class FXMLTekenapplicatieController implements Initializable {
     }
     
     @FXML
+    private void loadDrawingLocal() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Doing this will overwrite this drawing!\n\nContinue?", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Load drawing");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            SerializationMediator sm = new SerializationMediator();
+            dr = sm.load("Empty");
+        }
+        
+        draw();
+    }
+    
+    @FXML
+    private void saveDrawingLocal() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Doing this will overwrite any saved drawing!\n\nContinue?", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Save drawing");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            SerializationMediator sm = new SerializationMediator();
+            if (sm.save(dr)) {
+                new Alert(AlertType.INFORMATION, "Drawing successfully saved to local file.").showAndWait();
+            }
+            else {
+                new Alert(AlertType.INFORMATION, "An error occured whilst saving the drawing.\n\nPlease try again.").showAndWait();
+            }
+        }
+    }
+    
+    @FXML
+    private void loadDrawingDB() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Doing this will overwrite this drawing!\n\nContinue?", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Load drawing");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            DatabaseMediator db = new DatabaseMediator();
+            
+            dr = db.load(txtDBLoadName.getText());
+        }
+        
+        draw();
+    }
+    
+    @FXML
+    private void saveDrawingDB() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Doing this will overwrite any saved drawing!\n\nContinue?", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Save drawing");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            DatabaseMediator dm = new DatabaseMediator();
+            if (dm.save(dr)) {
+                new Alert(AlertType.INFORMATION, "Drawing successfully saved to database.").showAndWait();
+            }
+            else {
+                new Alert(AlertType.INFORMATION, "An error occured whilst saving the drawing.\n\nPlease try again.").showAndWait();
+            }
+        }
+    }
+    
+    // <editor-fold desc="Oval methods">
+    @FXML
     private void fillOvalInfo() {
         if (cmbOvalEdit.getValue() != null) {
             cmbOvalEditColor.setValue(cmbOvalEdit.getValue().getColor());
@@ -427,7 +509,9 @@ public class FXMLTekenapplicatieController implements Initializable {
             draw();
         }
     }
+    // </editor-fold>
     
+    // <editor-fold desc="Polygon methods">
     @FXML
     private void fillPolygonInfo() {
         if (cmbPolygonEdit.getValue() != null) {
@@ -462,7 +546,9 @@ public class FXMLTekenapplicatieController implements Initializable {
             draw();
         }
     }
+    // </editor-fold>
     
+    // <editor-fold desc="Text methods">
     @FXML
     private void fillTextInfo() {
         if (cmbTextEdit.getValue() != null) {
@@ -500,7 +586,9 @@ public class FXMLTekenapplicatieController implements Initializable {
             draw();
         }
     }
+    // </editor-fold>
     
+    // <editor-fold desc="Image methods">
     @FXML
     private void fillImageInfo() {
         if (cmbImageEdit.getValue() != null) {
@@ -534,6 +622,7 @@ public class FXMLTekenapplicatieController implements Initializable {
             draw();
         }
     }
+    // </editor-fold>
     
     /**
      * Initializes the controller class.

@@ -6,6 +6,7 @@
 package drawing.domain;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,7 +14,7 @@ import java.util.Collections;
  *
  * @author gebruiker
  */
-public class Drawing {
+public class Drawing implements Serializable {
     //Fields
     private String name;
     ArrayList<DrawingItem> items;

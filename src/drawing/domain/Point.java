@@ -5,11 +5,13 @@
  */
 package drawing.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gebruiker
  */
-public class Point {
+public class Point implements Serializable{
     //Fields
     private double x;
     private double y;

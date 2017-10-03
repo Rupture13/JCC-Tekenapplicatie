@@ -36,18 +36,41 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
                                        <children>
-                                          <Button fx:id="btnClear" layoutX="52.0" layoutY="336.0" mnemonicParsing="false" onAction="#clearDrawing" prefHeight="93.0" prefWidth="240.0" text="Clear canvas" />
-                                          <Label layoutX="47.0" layoutY="36.0" text="Drawing title">
+                                          <Button fx:id="btnClear" layoutX="47.0" layoutY="270.0" mnemonicParsing="false" onAction="#clearDrawing" prefWidth="250.0" text="Clear canvas" />
+                                          <Label layoutX="47.0" layoutY="66.0" text="Drawing title">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtGeneralTitle" layoutX="47.0" layoutY="66.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter the title of the drawing here..." text="Untitled drawing" />
-                                          <Button fx:id="btnGeneralRename" layoutX="47.0" layoutY="109.0" mnemonicParsing="false" onAction="#renameDrawing" prefWidth="250.0" text="Rename" />
+                                          <TextField fx:id="txtGeneralTitle" layoutX="47.0" layoutY="96.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter the title of the drawing here..." text="Untitled drawing" />
+                                          <Button fx:id="btnGeneralRename" layoutX="47.0" layoutY="129.0" mnemonicParsing="false" onAction="#renameDrawing" prefWidth="250.0" text="Rename" />
                                        </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab fx:id="tabStorage" onSelectionChanged="#openTabDrawing" text="Storage">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Button fx:id="btnLocalLoad" layoutX="47.0" layoutY="96.0" mnemonicParsing="false" onAction="#loadDrawingLocal" prefWidth="120.0" text="Load" />
+                                          <Button fx:id="btnLocalSave" layoutX="177.0" layoutY="96.0" mnemonicParsing="false" onAction="#saveDrawingLocal" prefWidth="120.0" text="Save" />
+                                          <Button fx:id="btnDBLoad" layoutX="47.0" layoutY="232.0" mnemonicParsing="false" onAction="#loadDrawingDB" prefWidth="250.0" text="Load" />
+                                          <Button fx:id="btnDBSave" layoutX="47.0" layoutY="270.0" mnemonicParsing="false" onAction="#saveDrawingDB" prefWidth="250.0" text="Save" />
+                                          <Label layoutX="47.0" layoutY="66.0" text="Local">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="164.0" text="Database">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtDBLoadName" layoutX="47.0" layoutY="194.0" prefHeight="31.0" prefWidth="250.0" promptText="Name of drawing to load..." />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>
