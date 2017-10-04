@@ -43,11 +43,23 @@ public class FXMLTekenapplicatieController implements Initializable {
         @FXML
         private Tab tabGeneral;
             @FXML
+            private ComboBox<DrawingItem> cmbGeneralDrawingChoose;
+            @FXML
             private TextField txtGeneralTitle;
             @FXML
             private Button btnGeneralRename;
             @FXML
+            private Button btnGeneralRevert;
+            @FXML
             private Button btnClear;
+        @FXML
+        private Tab tabItems;
+            @FXML
+            private ComboBox<DrawingItem> cmbItems;
+            @FXML
+            private Button btnItemsSort;
+            @FXML
+            private Button btnItemsRemove;
         @FXML
         private Tab tabStorage;
             @FXML
@@ -63,6 +75,10 @@ public class FXMLTekenapplicatieController implements Initializable {
     
     @FXML
     private Tab tabAdd;
+        @FXML
+        private Tab tabAddDrawing;
+            @FXML
+            private TextField txtAddDrawing;
         @FXML
         private Tab tabAddOval;
             @FXML
@@ -176,6 +192,7 @@ public class FXMLTekenapplicatieController implements Initializable {
     
     // <editor-fold desc="Global variables">
     GraphicsContext gc;
+    Drawing mainDrawing;
     Drawing dr;
     JavaFXPaintable painter;
     
@@ -187,8 +204,22 @@ public class FXMLTekenapplicatieController implements Initializable {
     @FXML
     private void openTabDrawing() {
         if (tabDrawing.isSelected()) {
-            if (tabStorage.isSelected()) {
-                //txtDBLoadName.setText(dr.getName());
+            if (tabGeneral.isSelected()) {
+                cmbGeneralDrawingChoose.getItems().clear();
+                if (mainDrawing != null) {
+                    cmbGeneralDrawingChoose.getItems().add(mainDrawing);
+                    cmbGeneralDrawingChoose.getItems().addAll(mainDrawing.getDrawings());
+                    try {
+                        cmbGeneralDrawingChoose.getSelectionModel().select(dr);
+                    } catch (Exception e) {
+                        System.out.println("whoopsieee");
+                    }
+                }
+            }
+            if (tabItems.isSelected()) {
+                if (cmbItems.getItems().size() > 0) {
+                    cmbItems.getSelectionModel().select(0);
+                }
             }
         }
     }
@@ -280,14 +311,15 @@ public class FXMLTekenapplicatieController implements Initializable {
     private void renameDrawing() {
         String newName = txtGeneralTitle.getText();
         dr.setName(newName);
-        lblDrawingName.setText(newName);
+        lblDrawingName.setText(mainDrawing.getName());
+        openTabDrawing();
     }
         
     @FXML
     private void testScript() {
         gc = myCanvas.getGraphicsContext2D();
         
-        dr = new Drawing("Mooi tekening");
+        dr = new Drawing("Mooi tekening", new Point(0, 0), drawing.domain.Color.BLUE, null);
         painter = new JavaFXPaintable(gc);
         
         Oval ov = new Oval(new Point(40, 80), 60, 20, 3, drawing.domain.Color.BLUE, dr);
@@ -307,6 +339,13 @@ public class FXMLTekenapplicatieController implements Initializable {
     @FXML
     private void addItemToDrawing(MouseEvent e) {
         if (tabAdd.isSelected()) {
+            if (tabAddDrawing.isSelected()) {
+                Drawing newDraw = new Drawing(txtAddDrawing.getText(), new Point(e.getX(), e.getY()), drawing.domain.Color.BLUE, dr);
+                dr.addDrawingItem(newDraw);
+                
+                draw();
+                new Alert(AlertType.INFORMATION, "New drawing '" + newDraw.getName() + "' has been added to the current drawing.").showAndWait();
+            }
             if (tabAddOval.isSelected()) {
                 Oval ov = new Oval(new Point(e.getX(), e.getY()), (double) numOvalAddWidth.getValue(), (double) numOvalAddHeight.getValue(), (double) numOvalAddWeight.getValue(), cmbOvalAddColor.getValue(), dr);
                 dr.addDrawingItem(ov);
@@ -338,9 +377,43 @@ public class FXMLTekenapplicatieController implements Initializable {
     }
     
     @FXML
+    private void changeWorkingDrawing() {
+        if (cmbGeneralDrawingChoose.getValue() != null) {
+            dr = (Drawing) cmbGeneralDrawingChoose.getValue();
+            cmbItems.setItems(dr.itemsToObserve());
+        }
+    }
+    
+    @FXML
+    private void sortItems() {
+        dr.sortDrawingItemsByDistanceToOrigin();
+        draw();
+    }
+    
+    @FXML
+    private void revertDrawing() {
+        if (cmbGeneralDrawingChoose.getValue() != null) {
+            cmbGeneralDrawingChoose.getValue().revertChange();
+            lblDrawingName.setText(mainDrawing.getName());
+            openTabDrawing();
+            changeWorkingDrawing();
+            draw();
+        }
+    }
+    
+    @FXML
+    private void removeItem() {
+        if (cmbItems.getValue() != null) {
+            dr.removeDrawingItem(cmbItems.getValue());
+            openTabDrawing();
+            draw();
+        }
+    }
+    
+    @FXML
     private void draw() {
         clearCanvas();
-        dr.paintUsing(painter);
+        mainDrawing.paintUsing(painter);
     }
     
     @FXML
@@ -350,7 +423,9 @@ public class FXMLTekenapplicatieController implements Initializable {
     
     @FXML
     private void clearDrawing() {
-        dr.removeAllDrawingItems();
+        dr = mainDrawing;
+        mainDrawing.removeAllDrawingItems();
+        cmbItems.setItems(dr.itemsToObserve());
         clearCanvas();
         openTabDrawing();
     }
@@ -417,8 +492,10 @@ public class FXMLTekenapplicatieController implements Initializable {
 
         if (alert.getResult() == ButtonType.YES) {
             SerializationMediator sm = new SerializationMediator();
-            dr = sm.load("Empty");
+            mainDrawing = sm.load("Empty");
+            dr = mainDrawing;
         }
+        
         
         draw();
     }
@@ -449,7 +526,8 @@ public class FXMLTekenapplicatieController implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             DatabaseMediator db = new DatabaseMediator();
             
-            dr = db.load(txtDBLoadName.getText());
+            mainDrawing = db.load(txtDBLoadName.getText());
+            dr = mainDrawing;
         }
         
         draw();
@@ -630,12 +708,16 @@ public class FXMLTekenapplicatieController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = myCanvas.getGraphicsContext2D();
-        dr = new Drawing("Untitled drawing");
+        mainDrawing = new Drawing("Untitled drawing", new Point(0, 0), drawing.domain.Color.BLUE, null);
+        dr = mainDrawing;
         painter = new JavaFXPaintable(gc);
         
         collectingPoints = false;
         polyPoints = new ArrayList<>();
         
+        cmbGeneralDrawingChoose.valueProperty().addListener((ObservableValue<? extends DrawingItem> observable, DrawingItem oldValue, DrawingItem newValue) -> {
+            changeWorkingDrawing();
+        });
         cmbOvalEdit.valueProperty().addListener((ObservableValue<? extends DrawingItem> observable, DrawingItem oldValue, DrawingItem newValue) -> {
             fillOvalInfo();
         });
@@ -649,5 +731,6 @@ public class FXMLTekenapplicatieController implements Initializable {
             fillImageInfo();
         });
         
+        openTabDrawing();
     }
 }

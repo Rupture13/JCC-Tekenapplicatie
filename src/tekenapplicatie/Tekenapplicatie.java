@@ -25,7 +25,7 @@ public class Tekenapplicatie {
     public static void TestScript1() {
         //Dit is een eigen verzonnen testscript om het een en ander mee te testen
         //Dit testscript werkt nu 100% :)
-        Drawing dr = new Drawing("Masterpiece");
+        Drawing dr = new Drawing("Masterpiece4", new Point(0, 0), drawing.domain.Color.BLUE, null);
         
         Oval ov = new Oval(new Point(2, 3), 12, 768, 3, Color.BLUE, dr);
         Point[] polyPoints = {new Point(1, 2), new Point(3, 4), new Point(2, 3)};
@@ -66,24 +66,35 @@ public class Tekenapplicatie {
         
         System.out.println("\n" + dr.toString());
         
-        SerializationMediator sm = new SerializationMediator();
-        sm.save(dr);
-        Drawing dr2 = sm.load("Masterpiece");
-        if (dr2 != null) {
-            System.out.println("PostSerializing\n" + dr2.toString());
-        }
+//        SerializationMediator sm = new SerializationMediator();
+//        sm.save(dr);
+//        Drawing dr2 = sm.load("Masterpiece");
+//        if (dr2 != null) {
+//            System.out.println("PostSerializing\n" + dr2.toString());
+//        }
         
         DatabaseMediator dm = new DatabaseMediator();
-        dm.save(dr);
-        Drawing dr3 = dm.load("Masterpiece");
+        //dm.save(dr);
+        Drawing dr3 = dm.load("Masterpiece4");
         if (dr3 != null) {
             System.out.println("PostDatabasing\n" + dr3.toString());
         }
+        
+        System.out.println("TestRecursie");
+        dr.addDrawingItem(dr3);
+        dr3.setName("Lolwat");
+        System.out.println(dr.toString());
+        dr3.setName("Hehe");
+        System.out.println(dr.toString());
+        dr3.revertChange();
+        System.out.println(dr.toString());
+        
+        
     }
     
     public static void TestScript2() {
         //Dit is het testscript zoals in de opdracht beschreven
-        Drawing dr = new Drawing("TestDrawing");
+        Drawing dr = new Drawing("TestDrawing", new Point(0, 0), drawing.domain.Color.BLUE, null);
         
         Oval ov = new Oval(new Point(5, 2), 12, 768, 3, Color.BLUE, dr);
         

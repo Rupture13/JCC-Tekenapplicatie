@@ -36,18 +36,41 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
                                        <children>
-                                          <Button fx:id="btnClear" layoutX="47.0" layoutY="270.0" mnemonicParsing="false" onAction="#clearDrawing" prefWidth="250.0" text="Clear canvas" />
-                                          <Label layoutX="47.0" layoutY="66.0" text="Drawing title">
+                                          <Button fx:id="btnClear" layoutX="47.0" layoutY="398.0" mnemonicParsing="false" onAction="#clearDrawing" prefWidth="250.0" text="Clear canvas" />
+                                          <Label layoutX="47.0" layoutY="194.0" text="Drawing title">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtGeneralTitle" layoutX="47.0" layoutY="96.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter the title of the drawing here..." text="Untitled drawing" />
-                                          <Button fx:id="btnGeneralRename" layoutX="47.0" layoutY="129.0" mnemonicParsing="false" onAction="#renameDrawing" prefWidth="250.0" text="Rename" />
+                                          <TextField fx:id="txtGeneralTitle" layoutX="47.0" layoutY="224.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter the title of the drawing here..." text="Untitled drawing" />
+                                          <Button fx:id="btnGeneralRename" layoutX="47.0" layoutY="257.0" mnemonicParsing="false" onAction="#renameDrawing" prefWidth="250.0" text="Rename" />
+                                          <ComboBox fx:id="cmbGeneralDrawingChoose" layoutX="47.0" layoutY="73.0" maxHeight="31.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="43.0" text="Choose working drawing">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnGeneralRevert" layoutX="47.0" layoutY="360.0" mnemonicParsing="false" onAction="#revertDrawing" prefWidth="250.0" text="Revert to previous state" />
                                        </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab fx:id="tabItems" onSelectionChanged="#openTabDrawing" text="Items">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Button fx:id="btnItemsSort" layoutX="47.0" layoutY="152.0" mnemonicParsing="false" onAction="#sortItems" prefWidth="250.0" text="Sort items to distance to origin" />
+                                          <ComboBox fx:id="cmbItems" layoutX="47.0" layoutY="73.0" maxHeight="31.0" prefWidth="250.0" />
+                                          <Label layoutX="47.0" layoutY="43.0" text="Items in the drawing">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btnItemsRemove" layoutX="47.0" layoutY="191.0" mnemonicParsing="false" onAction="#removeItem" prefWidth="250.0" text="Remove selected item" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                               <Tab fx:id="tabStorage" onSelectionChanged="#openTabDrawing" text="Storage">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
@@ -83,6 +106,25 @@
                      <children>
                         <TabPane layoutX="8.0" prefHeight="482.0" prefWidth="343.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
                            <tabs>
+                              <Tab fx:id="tabAddDrawing" onSelectionChanged="#openTabAdd" text="Drawing">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">
+                                       <children>
+                                          <Label layoutX="20.0" layoutY="17.0" prefHeight="62.0" prefWidth="304.0" text="Click anywhere on the canvas to create a new drawing within the current drawing." textAlignment="JUSTIFY" textFill="#f2ff00" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="47.0" layoutY="114.0" text="Drawing title">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txtAddDrawing" layoutX="47.0" layoutY="152.0" prefHeight="31.0" prefWidth="250.0" promptText="Enter the title of the drawing here..." />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                               <Tab fx:id="tabAddOval" onSelectionChanged="#openTabAdd" text="Oval">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="343.0">

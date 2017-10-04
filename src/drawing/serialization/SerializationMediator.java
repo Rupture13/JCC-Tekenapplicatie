@@ -36,6 +36,7 @@ public class SerializationMediator implements PersistencyMediator {
             dr = (Drawing) in.readObject();
             in.close();
             fileIn.close();
+            System.out.println("Test1");
             return dr;
         } catch(IOException i) {
             System.out.println("Error:\n" + i.getMessage());
