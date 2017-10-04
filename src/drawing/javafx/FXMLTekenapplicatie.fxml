@@ -449,6 +449,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Label fx:id="lblDrawingName" layoutX="14.0" layoutY="12.0" prefHeight="46.0" prefWidth="725.0" style="-fx-font-weight: bold; -fx-font-size: 24px;" text="Untitled drawing" />
+      <Label fx:id="lblDrawingName" layoutX="14.0" layoutY="12.0" prefHeight="46.0" prefWidth="574.0" style="-fx-font-weight: bold; -fx-font-size: 24px;" text="Untitled drawing" />
+      <Button fx:id="btnOverlapMode" layoutX="596.0" layoutY="20.0" maxWidth="143.0" minWidth="143.0" mnemonicParsing="false" onAction="#switchOverlapMode" prefWidth="143.0" text="Overlap mode: Off" />
    </children>
 </AnchorPane>

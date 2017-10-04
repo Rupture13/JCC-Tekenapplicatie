@@ -39,6 +39,9 @@ public class FXMLTekenapplicatieController implements Initializable {
     private Label lblDrawingName;
     
     @FXML
+    private Button btnOverlapMode;
+    
+    @FXML
     private Tab tabDrawing;
         @FXML
         private Tab tabGeneral;
@@ -196,6 +199,8 @@ public class FXMLTekenapplicatieController implements Initializable {
     Drawing dr;
     JavaFXPaintable painter;
     
+    boolean overlapMode;
+    
     boolean collectingPoints;
     ArrayList<Point> polyPoints;
     //</editor-fold>
@@ -341,14 +346,24 @@ public class FXMLTekenapplicatieController implements Initializable {
         if (tabAdd.isSelected()) {
             if (tabAddDrawing.isSelected()) {
                 Drawing newDraw = new Drawing(txtAddDrawing.getText(), new Point(e.getX(), e.getY()), drawing.domain.Color.BLUE, dr);
-                dr.addDrawingItem(newDraw);
+                
+                if (overlapMode || !checkOverlapWithinDrawing(newDraw)) {
+                    dr.addDrawingItem(newDraw);
+                    new Alert(AlertType.INFORMATION, "New drawing '" + newDraw.getName() + "' has been added to the current drawing.").showAndWait();
+                } else {
+                    new Alert(AlertType.ERROR, "OVERLAP MODE IS OFF\n\nTurn Overlap mode on to draw items onto each other.").showAndWait();
+                }
                 
                 draw();
-                new Alert(AlertType.INFORMATION, "New drawing '" + newDraw.getName() + "' has been added to the current drawing.").showAndWait();
             }
             if (tabAddOval.isSelected()) {
                 Oval ov = new Oval(new Point(e.getX(), e.getY()), (double) numOvalAddWidth.getValue(), (double) numOvalAddHeight.getValue(), (double) numOvalAddWeight.getValue(), cmbOvalAddColor.getValue(), dr);
-                dr.addDrawingItem(ov);
+                
+                if (overlapMode || !checkOverlapWithinDrawing(ov)) {
+                    dr.addDrawingItem(ov);
+                } else {
+                    new Alert(AlertType.ERROR, "OVERLAP MODE IS OFF\n\nTurn Overlap mode on to draw items onto each other.").showAndWait();
+                }
                 
                 draw();
             }
@@ -363,13 +378,23 @@ public class FXMLTekenapplicatieController implements Initializable {
             }
             else if (tabAddText.isSelected()) {
                 PaintedText txt = new PaintedText(new Point(e.getX(), (e.getY() + numTextAddHeight.getValue() - 10)), (double) numTextAddWidth.getValue(), (double) numTextAddHeight.getValue(), txtTextAddText.getText(), cmbTextAddFont.getValue(), cmbTextAddColor.getValue(), dr);
-                dr.addDrawingItem(txt);
+                
+                if (overlapMode || !checkOverlapWithinDrawing(txt)) {
+                    dr.addDrawingItem(txt);
+                } else {
+                    new Alert(AlertType.ERROR, "OVERLAP MODE IS OFF\n\nTurn Overlap mode on to draw items onto each other.").showAndWait();
+                }
                 
                 draw();
             }
             else if (tabAddImage.isSelected()) {
                 Image img = new Image(new Point(e.getX(), e.getY()), 1, 1, new File(txtImageAddPath.getText()), drawing.domain.Color.BLUE, dr);
-                dr.addDrawingItem(img);
+                
+                if (overlapMode || !checkOverlapWithinDrawing(img)) {
+                    dr.addDrawingItem(img);
+                } else {
+                    new Alert(AlertType.ERROR, "OVERLAP MODE IS OFF\n\nTurn Overlap mode on to draw items onto each other.").showAndWait();
+                }
                 
                 draw();
             }
@@ -444,7 +469,11 @@ public class FXMLTekenapplicatieController implements Initializable {
         points = polyPoints.toArray(points);
         
         Polygon po = new Polygon(points, (double) numPolygonAddWeight.getValue(), cmbPolygonAddColor.getValue(), dr);
-        dr.addDrawingItem(po);
+        if (overlapMode || !checkOverlapWithinDrawing(po)) {
+            dr.addDrawingItem(po);
+        } else {
+            new Alert(AlertType.ERROR, "OVERLAP MODE IS OFF\n\nTurn Overlap mode on to draw items onto each other.").showAndWait();
+        }
         
         polyPoints.clear();
         collectingPoints = false;
@@ -452,6 +481,28 @@ public class FXMLTekenapplicatieController implements Initializable {
         lblPolygonAddCount.setVisible(false);
         
         draw();
+    }
+    
+    @FXML
+    private void switchOverlapMode() {
+        if (overlapMode) {
+            overlapMode = false;
+            btnOverlapMode.setText("Overlap mode: Off");
+        }
+        else {
+            overlapMode = true;
+            btnOverlapMode.setText("Overlap mode: On");
+        }
+    }
+    
+    private boolean checkOverlapWithinDrawing(DrawingItem di) {
+        boolean overlaps = false;
+        for (DrawingItem item : dr.getItems()) {
+            if (di.overlaps(item)) {
+                overlaps = true;
+            }
+        }
+        return overlaps;
     }
     
     @FXML
@@ -711,6 +762,9 @@ public class FXMLTekenapplicatieController implements Initializable {
         mainDrawing = new Drawing("Untitled drawing", new Point(0, 0), drawing.domain.Color.BLUE, null);
         dr = mainDrawing;
         painter = new JavaFXPaintable(gc);
+        
+        overlapMode = true;
+        btnOverlapMode.setText("Overlap mode: On");
         
         collectingPoints = false;
         polyPoints = new ArrayList<>();
